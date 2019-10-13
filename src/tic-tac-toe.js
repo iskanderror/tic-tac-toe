@@ -29,12 +29,12 @@ class TicTacToe {
 
     nextTurn(rowIndex, columnIndex) {
       if (this._data[rowIndex][columnIndex] !== null){
-        this.getStatus(rowIndex, columnIndex);
         return;
       }
       let currentSymbol = this.getCurrentPlayerSymbol();
       this._data[rowIndex][columnIndex] = currentSymbol;
 
+      /*check rows and cols*/
       let symbolsInRow = 0;
       let symbolsInCol = 0;
       for (let i=0; i<FIELD_SIZE; i++){
@@ -46,6 +46,7 @@ class TicTacToe {
         }
       }
 
+      /*check diagonals*/
       let symbolsInDiag1 = 0;
       let symbolsInDiag2 = 0;
       if (rowIndex===columnIndex || rowIndex===FIELD_SIZE-1-columnIndex) {
@@ -65,7 +66,6 @@ class TicTacToe {
       }
 
       this._turnCount++;
-      this.getStatus(rowIndex, columnIndex);
     }
 
     isFinished() {
@@ -93,19 +93,6 @@ class TicTacToe {
     getFieldValue(rowIndex, colIndex) {
       return this._data[rowIndex][colIndex];
     }
-
-
-    getStatus(rowIndex, columnIndex) {
-      let i1 =  this.isFinished();
-      let i2 =  this.getWinner();
-      let i3 =  this.noMoreTurns();
-      let i4 =  this.isDraw();
-      let i5 =  this.getFieldValue(rowIndex, columnIndex);
-      let i6 =  this.getCurrentPlayerSymbol();
-    }
-
-
-
 }
 
 module.exports = TicTacToe;
